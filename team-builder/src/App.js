@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "./Form";
 import "./App.css";
+import Member from "./Member";
 
 function App() {
   const [teamList, setTeamList] = useState([]);
@@ -21,26 +22,16 @@ function App() {
   return (
     <div className="App">
       <h3>Team List</h3>
-      <ul>
-        {teamList.map((member) => (
-          <li key={member.id}>
-            {member.name}, {member.email}, {member.role} -{" "}
-            <button className="remove" onClick={(e) => removeMember(member.id)}>
-              X
-            </button>
-            <button
-              className="edit"
-              onClick={(e) => {
-                setMember(member);
-                setEditing(true);
-              }}
-            >
-              E
-            </button>
-          </li>
-        ))}
-      </ul>
       <Form addMember={addMember} editMember={editMember} member={member} editing={editing} />
+      {teamList.map((member) => (
+        <Member
+          key={member.id}
+          member={member}
+          removeMember={removeMember}
+          setEditing={setEditing}
+          setMember={setMember}
+        />
+      ))}
     </div>
   );
 }
